@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Mithril test...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="node_modules/purecss/build/pure.css">
+    <script type="text/javascript" src="node_modules/mithril/mithril.js"></script>
+
+    <script type="text/javascript" src="app/root.js"></script>
+
+  </head>
+  <body>
+  </body>
+  <script>
+    m.route.mode = 'hash';
+    m.route(document.body, "/", {
+        "/": new Components.RootComponent()
+    });
+
+    // m.mount(document.body, new Components.SearchComponent());
+  </script>
+</html>

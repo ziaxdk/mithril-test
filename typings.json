@@ -1,0 +1,7 @@
+{
+  "name": "mithril-test",
+  "dependencies": {},
+  "globalDependencies": {
+    "mithril": "registry:dt/mithril#0.0.0+20160501155657"
+  }
+}
