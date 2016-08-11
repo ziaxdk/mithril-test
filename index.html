@@ -14,7 +14,8 @@
   <script>
     m.route.mode = 'hash';
     m.route(document.body, "/", {
-        "/": new Components.RootComponent()
+        "/": new Components.RootComponent(),
+        "/res/:q": new Components.RootComponent(),
     });
 
     // m.mount(document.body, new Components.SearchComponent());

@@ -8,48 +8,54 @@ module Components {
       q: m.prop('test')
     };
 
-    SearchComponent = new Components.SearchComponent(this.model);
-    DummyComponent = new Components.DummyComponent(this.model);
+    SearchComponent = new Components.SearchComponent();
+    DummyComponent = new Components.DummyComponent();
 
     controller() {return null;};
 
     view() {
       return m('div', [
-        m(this.SearchComponent),
-        m(this.DummyComponent)
+        m(this.SearchComponent, this.model),
+        m(this.DummyComponent, this.model)
       ]);
     }
   }
 
   export class SearchComponent implements Mithril.Component<any> {
-    model:IRootModel;
+    
+    controller(model:IRootModel) {
+      return {
+        q: model.q,
+        submit: function() {
+          console.log()
+          m.route('/res/' + encodeURIComponent(model.q()));
+          return false;
+        }
+      };
+    };
 
-    constructor(model:IRootModel) {
-      this.model = model;
-    }
-
-    controller() {return null;};
-
-    view() {
-      return m('form', { class: "pure-form" },
+    view(ctrl) {
+      return m('form', { onsubmit: ctrl.submit, class: "pure-form" },
           m('fieldset', [
-            m('input', { value: this.model.q(), placeholder: 'Enter search...', oninput: m.withAttr("value", this.model.q) }),
-            m('button', { class: 'pure-button pure-button-primary'}, 'Search')
+            m('input', { value: ctrl.q(), placeholder: 'Enter search...', oninput: m.withAttr("value", ctrl.q) }),
+            m('button', { type: 'submit', class: 'pure-button pure-button-primary'}, 'Search')
         ]));
     }
   }
 
+  interface IDummyModel {
+    q: Mithril.Property<string>;
+  }
   export class DummyComponent implements Mithril.Component<IRootModel> {
-    model:IRootModel;
 
-    constructor(model:IRootModel) {
-      this.model = model;
-    }
+    controller(model:IRootModel) {
+      return {
+        q: model.q
+      };
+    };
 
-    controller() {return null;};
-
-    view() {
-      return m('div', this.model.q() );
+    view(ctrl: IDummyModel) {
+      return m('div', ctrl.q() );
     }
   }
 }
